@@ -12,7 +12,7 @@ struct CircleImageHeadshot: View {
         Image("headshot")
             .resizable()
             .scaledToFill()
-            .frame(width: 200, height: 200)
+            .frame(width: 160, height: 160)
             .clipShape(Circle())
             .overlay {
                 Circle().stroke(.pink, lineWidth: 1)

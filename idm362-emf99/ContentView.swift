@@ -15,6 +15,7 @@ struct ContentView: View {
             Text(showingScout ? "Scout Fromherz" : "Ella Fromherz")
                     .font(.title)
                     .fontWeight(.thin)
+                    .foregroundColor(Color.pink)
                     .padding(.all, 10)
             
             if showingScout {
