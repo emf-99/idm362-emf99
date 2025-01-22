@@ -13,9 +13,9 @@ struct ContentView: View {
     var body: some View {
         VStack(alignment: .center) {
             Text(showingScout ? "Scout Fromherz" : "Ella Fromherz")
+                .foregroundColor(.pink)
                     .font(.title)
                     .fontWeight(.thin)
-                    .foregroundColor(Color.black)
                     .padding(.all, 10)
             
             if showingScout {
@@ -30,6 +30,8 @@ struct ContentView: View {
             Button(action: {
                 showingScout.toggle()
             }) {
+                Text(showingScout ? "Show Ella →" : "Show Scout →")
+                    .fontWeight(.light)
                 Image(systemName: "pawprint.fill")
                     .font(.system(size: 20))
                     .foregroundColor(.white)
