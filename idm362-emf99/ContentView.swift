@@ -8,21 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showingScout = false
-
     var body: some View {
-        VStack(alignment: .center) {
-            Text("hello, world")
-                .foregroundColor(.pink)
-                    .font(.title)
-                    .fontWeight(.thin)
-                    .padding(.all, 10)
-                    
-            }
-            .padding(.all, 10)
+        ZStack {
+            AppBackgroundOpen()
+            Image("logo-primary")
+                .frame(width: 340.29382, height: 113.57661)
+                .shadow(color: Color(red: 0.67, green: 0.75, blue: 0.44).opacity(0.1), radius: 17.5, x: 0, y: 10)
+
         }
     }
-
+}
 
 
 #Preview {
