@@ -8,16 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showingScout = false
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hey, world!")
+        VStack(alignment: .center) {
+            Text("hello, world")
+                .foregroundColor(.pink)
+                    .font(.title)
+                    .fontWeight(.thin)
+                    .padding(.all, 10)
+                    
+            }
+            .padding(.all, 10)
         }
-        .padding()
     }
-}
+
 
 
 #Preview {
