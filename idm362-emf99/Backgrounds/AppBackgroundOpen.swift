@@ -14,72 +14,76 @@ struct AppBackgroundOpen: View {
             Color("AppBackground")
                 .ignoresSafeArea()
             
-            //cloud bg
+            //cloud top
             VStack {
-                Image("cloud")
-                    .padding(.leading, 400)
-                    .frame(width: 261, height: 163)
-                Image("cloud")
-                    .padding(.trailing, 350)
-                    .frame(width: 261, height: 163)
-            }
-            .padding(.bottom, 580)
-            
-            VStack {
-                Image("cloud")
-                    .padding(.leading, 350)
-                    .frame(width: 261, height: 163)
-                Image("cloud")
-                    .padding(.trailing, 400)
-                    .frame(width: 261, height: 163)
-            }
-            .padding(.top, 480)
-            
-            //sticker bg
-            VStack {
-                //safe travels
+                // cloud 1
                 HStack {
-                    ZStack {
-                        Image("safe-travels2")
-                            .rotationEffect(Angle(degrees: -30))
-                            .frame(width: 115, height: 115)
-                        
+                    Image("cloud")
+                        .offset(x: 270, y: -50)
+                        .frame(width: 261, height: 163)
+                    //safe travels
+                    HStack {
+                        ZStack {
+                            Image("safe-travels2")
+                                .rotationEffect(Angle(degrees: -30))
+                                .frame(width: 115, height: 115)
+                            
+                        }
+                        .offset(x: -40, y: 40)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     }
-                    .padding(.leading, 240)
-                    .padding(.trailing, 0)
-                    .padding(.top, -170)
-                    .padding(.bottom, 320)
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                //be notified
+                //cloud 2
                 HStack {
-                    ZStack() {
-                        Image("be-notified1")
-                            .rotationEffect(Angle(degrees: -15))
-                            .frame(width: 50, height: 50)
-                        
+                    Image("cloud")
+                        .offset(x: -150, y: -50)
+                        .frame(width: 261, height: 163)
+                    
+                    //be notified
+                    HStack {
+                        ZStack() {
+                            Image("be-notified1")
+                                .rotationEffect(Angle(degrees: -15))
+                                .frame(width: 50, height: 50)
+                            
+                        }
+                        .offset(x: -270, y: 30)
+                        .frame(width: 10.0, height: 10.0)
                     }
-                    .padding(.trailing, 260)
-                    .padding(.bottom, 550)
-                    .frame(width: 10.0, height: 10.0)
-                }
-                
-                //pack smart
-                HStack {
-                    ZStack() {
-                        Image("pack-smart1")
-                            .frame(width: 100, height: 100)
-                            .rotationEffect(Angle(degrees: 30))
-                        
-                    }
-                    .padding(.leading, 170)
-                    .padding(.bottom, -70)
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
-            .padding(0)
-            .frame(width: 402, alignment: .topLeading)
+            .frame(maxHeight: .infinity, alignment: .top)
+            
+            //cloud bottom
+            VStack {
+                //cloud 3
+                HStack {
+                    Image("cloud")
+                        .offset(x: 230, y: 30)
+                        .frame(width: 261, height: 163)
+                    
+                    //pack smart
+                    HStack {
+                        ZStack() {
+                            Image("pack-smart1")
+                                .frame(width: 100, height: 100)
+                                .rotationEffect(Angle(degrees: 30))
+                            
+                        }
+                        .offset(x: -100, y: 100)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                }
+                
+                // cloud 4
+                HStack {
+                    Image("cloud")
+                        .offset(x: -200, y: -10)
+                        .frame(width: 261, height: 163)
+                }
+            }
+            .frame(maxHeight: .infinity, alignment: .bottom)
         }
         }
         

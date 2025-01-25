@@ -12,10 +12,14 @@ struct ContentView: View {
         ZStack {
             AppBackgroundOpen()
             Image("logo-primary")
-                .frame(width: 340.29382, height: 113.57661)
+                .resizable()
+                    .scaledToFit()
+                    .scaleEffect(0.9)
                 .shadow(color: Color(red: 0.67, green: 0.75, blue: 0.44).opacity(0.1), radius: 17.5, x: 0, y: 10)
+                .padding(.all, 8.0)
 
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 

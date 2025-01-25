@@ -1,5 +1,5 @@
 //
-//  FlightHero.swift
+//  NotifHero.swift
 //  idm362-emf99
 //
 //  Created by ella fromherz on 1/24/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FlightHero: View {
+struct NotifHero: View {
     var body: some View {
         ZStack {
             VStack {
@@ -19,17 +19,17 @@ struct FlightHero: View {
             }
             VStack {
                 // sticker top
-                Image("bon-voyage")
+                Image("stay-org")
                     .offset(x: 0, y: -10)
                     .rotationEffect(Angle(degrees: -15))
                 
                 HStack {
                     // sticker L
-                    Image("safe-travels1")
+                    Image("be-notified2")
                         .offset(x: -90, y: -10)
                         .rotationEffect(Angle(degrees: -30))
                     // sticker R
-                    Image("take-it-easy")
+                    Image("dont-miss")
                         .offset(x: 55, y: -20)
                         .rotationEffect(Angle(degrees: 30))
                 }
@@ -39,5 +39,5 @@ struct FlightHero: View {
 }
 
 #Preview {
-    FlightHero()
+    NotifHero()
 }

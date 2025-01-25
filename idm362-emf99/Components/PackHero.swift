@@ -9,7 +9,32 @@ import SwiftUI
 
 struct PackHero: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            VStack {
+                // logo
+               Image("logo")
+                    .resizable()
+                        .scaledToFit()
+                        .scaleEffect(0.5)
+            }
+            VStack {
+                // sticker top
+                Image("dont-forget")
+                    .offset(x: 0, y: -10)
+                    .rotationEffect(Angle(degrees: -15))
+                
+                HStack {
+                    // sticker L
+                    Image("pack-smart2")
+                        .offset(x: -90, y: -10)
+                        .rotationEffect(Angle(degrees: -30))
+                    // sticker R
+                    Image("stay-org")
+                        .offset(x: 55, y: -20)
+                        .rotationEffect(Angle(degrees: 30))
+                }
+            }
+        }
     }
 }
 
