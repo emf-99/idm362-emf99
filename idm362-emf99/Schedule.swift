@@ -8,18 +8,38 @@
 import SwiftUI
 
 struct Schedule: View {
+    
+    private func spacing(for height: CGFloat) -> CGFloat {
+        if height < 700 {
+            return -70
+        } else if height < 839 {
+            return -60
+        } else {
+            return -60
+        }
+    }
+    
     var body: some View {
-        ZStack {
-            AppBackground()
-                VStack {
-                    Image("logo")
-                        .resizable()
-                        .scaledToFit()
-                        .scaleEffect(1)
-                    ScheduleList()
-                        .offset(y: -20)
+        GeometryReader { geometry in
+            let dynamicSpacing = spacing(for: geometry.size.height)
+            
+            HStack(alignment: .bottom, spacing: 1.0) {
+                ZStack {
+                    AppBackground()
+                        .ignoresSafeArea()
+                    
+                    VStack(alignment: .center, spacing: dynamicSpacing) {
+                        Image("logo")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width * 0.25)
+                        
+                        ScheduleList()
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
+        }
     }
 }
 

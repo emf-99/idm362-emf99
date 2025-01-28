@@ -9,34 +9,46 @@ import SwiftUI
 
 struct AppBackground: View {
     var body: some View {
-        ZStack {
-            //bg color
-            Color("AppBackground")
-                .ignoresSafeArea()
+        GeometryReader { geometry in
+            let screenHeight = geometry.size.height
+            let topOffset: CGFloat = screenHeight < 700 ? -60 : 0
+            let bottomOffset: CGFloat = screenHeight < 700 ? 60 : 0
             
-            //cloud bg
-            VStack {
-                VStack {
-                    Image("cloud")
-                        .padding(.leading, 400)
-                        .frame(width: 261, height: 163)
-                    Image("cloud")
-                        .padding(.trailing, 350)
-                        .frame(width: 261, height: 163)
-                }
-                .frame(maxHeight: .infinity, alignment: .top)
+            ZStack {
+                //bg color
+                Color("AppBackground")
+                    .ignoresSafeArea()
                 
-                VStack {
-                    Image("cloud")
-                        .padding(.leading, 350)
-                        .frame(width: 261, height: 163)
-                    Image("cloud")
-                        .padding(.trailing, 400)
-                        .frame(width: 261, height: 163)
+                //cloud bg
+                VStack(spacing: 0) {
+                    
+                    VStack {
+                        Image("cloud")
+                            .padding(.leading, 400)
+                            .frame(width: 261, height: 163)
+                        
+                        Image("cloud")
+                            .padding(.trailing, 350)
+                            .frame(width: 261, height: 163)
+                    }
+                    .frame(maxHeight: .infinity, alignment: .top)
+                    .offset(y: topOffset)
+                    
+                    VStack {
+                        Image("cloud")
+                            .padding(.leading, 350)
+                            .frame(width: 261, height: 163)
+                        
+                        Image("cloud")
+                            .padding(.trailing, 400)
+                            .frame(width: 261, height: 163)
+                    }
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .offset(y: bottomOffset)
                 }
-                .frame(maxHeight: .infinity, alignment: .bottom)
+                .opacity(0.2)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
-            .opacity(0.2)
         }
     }
 }

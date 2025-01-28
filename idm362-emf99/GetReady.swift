@@ -9,15 +9,18 @@ import SwiftUI
 
 struct GetReady: View {
     var body: some View {
-        ZStack {
-            AppBackground()
+        GeometryReader { geometry in
+            ZStack {
+                AppBackground()
                 ZStack(alignment: .top) {
                     TimeModal()
                         .offset(y: 45)
                     FlightHero()
                         .offset(y: -180)
                 }
+                .frame(width: geometry.size.width, height: geometry.size.height)
             }
+        }
     }
 }
 
