@@ -9,11 +9,6 @@ import SwiftUI
 
 struct AppBackgroundOpen: View {
     var body: some View {
-        GeometryReader { geometry in
-            let screenHeight = geometry.size.height
-            let topOffset: CGFloat = screenHeight < 700 ? -60 : 0
-            let bottomOffset: CGFloat = screenHeight < 700 ? 60 : 0
-            
             ZStack {
                 //bg color
                 Color("AppBackground")
@@ -57,7 +52,6 @@ struct AppBackgroundOpen: View {
                     }
                 }
                 .frame(maxHeight: .infinity, alignment: .top)
-                .offset(y: topOffset)
                 
                 //cloud bottom
                 VStack {
@@ -87,11 +81,10 @@ struct AppBackgroundOpen: View {
                     }
                 }
                 .frame(maxHeight: .infinity, alignment: .bottom)
-                .offset(y: bottomOffset)
             }
         }
     }
-}
+
 
 #Preview {
     AppBackgroundOpen()

@@ -9,7 +9,6 @@ import SwiftUI
 
 struct NotifCheck: View {
     var body: some View {
-        GeometryReader { geometry in
             ZStack {
                 AppBackground()
                 ZStack(alignment: .top) {
@@ -18,9 +17,7 @@ struct NotifCheck: View {
                     FlightHero()
                         .offset(y: -180)
                 }
-                .frame(width: geometry.size.width, height: geometry.size.height)
             }
-        }
     }
 }
 
