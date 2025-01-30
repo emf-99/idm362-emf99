@@ -9,10 +9,19 @@ import SwiftUI
 
 struct ScheduleList: View {
     
-    @State private var isChecked: Bool = false
-    
+    @State private var checkedStates: [Bool] = Array(repeating: false, count: 6) // One for each checklist item
+
     let baseWidth: CGFloat = 350
     let baseHeight: CGFloat = 720
+    
+    let checklistItems = [
+        "leave for BWI airport at 10:30am, 10am if you are parking there",
+        "arrive at security at 11:00am. lines are longer on friday mornings",
+        "arrive at gate by 12:30pm",
+        "purchase any items you will use in flight at a nearby newsstand",
+        "board your flight at 1:30",
+        "enjoy!"
+    ]
     
     var body: some View {
         GeometryReader { geometry in
@@ -35,14 +44,13 @@ struct ScheduleList: View {
             
             HStack(alignment: .center) {
                 ZStack {
-                    
                     Rectangle()
                         .fill(Color("ModalColor"))
                         .cornerRadius(20)
                     
                     VStack(spacing: 0.0) {
                         Text("here's your travel plan!")
-                            .font(.system(size: 20))
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("TextColor"))
                             .padding()
                         
@@ -51,36 +59,36 @@ struct ScheduleList: View {
                         
                         VStack(spacing: 10) {
                             Text("flight number: 2EF36M3")
-                                .font(.caption)
+                                .font(.rethink(fontStyle: .caption))
                                 .fontWeight(.light)
                                 .foregroundColor(Color("TextColor"))
                             
                             HStack(spacing: 40) {
                                 VStack {
                                     Text("25")
-                                        .font(.title2)
+                                        .font(.rethink(fontStyle: .title2))
                                         .fontWeight(.bold)
                                         .foregroundColor(Color("TextColor"))
                                     Text("october")
-                                        .font(.caption)
+                                        .font(.rethink(fontStyle: .caption))
                                         .fontWeight(.light)
                                         .foregroundColor(Color("TextColor"))
                                 }
                                 
                                 Text("BWI > LGA")
-                                    .font(.headline)
+                                    .font(.rethink(fontStyle: .title3))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("TextColor"))
                                 
                                 VStack {
                                     Text("departure time:")
-                                        .font(.system(size: 8))
+                                        .font(.rethink(fontStyle: .caption2))
                                         .fontWeight(.light)
                                         .foregroundColor(Color("TextColor"))
                                         .lineLimit(2)
                                     
                                     Text("2:00pm")
-                                        .fontWeight(.bold)
+                                        .font(.rethink(fontStyle: .title3))
                                         .foregroundColor(Color("TextColor"))
                                 }
                             }
@@ -94,41 +102,8 @@ struct ScheduleList: View {
                             .cornerRadius(20)
                         
                         VStack(alignment: .leading, spacing: 35.0) {
-                            HStack(alignment: .top) {
-                                CheckBtn(isSet: $isChecked)
-                                Text("leave for BWI airport at 10:30am, 10am if you are parking there")
-                                    .font(.headline)
-                                    .foregroundColor(Color("TextColor"))
-                            }
-                            HStack {
-                                CheckBtn(isSet: $isChecked)
-                                Text("arrive at security at 11:00am.  lines are longer on friday mornings")
-                                    .font(.headline)
-                                    .foregroundColor(Color("TextColor"))
-                            }
-                            HStack {
-                                CheckBtn(isSet: $isChecked)
-                                Text("arrive at gate by 12:30pm")
-                                    .font(.headline)
-                                    .foregroundColor(Color("TextColor"))
-                            }
-                            HStack {
-                                CheckBtn(isSet: $isChecked)
-                                Text("purchase any items you will use in flight at a nearby newsstand")
-                                    .font(.headline)
-                                    .foregroundColor(Color("TextColor"))
-                            }
-                            HStack {
-                                CheckBtn(isSet: $isChecked)
-                                Text("board your flight at 1:30")
-                                    .font(.headline)
-                                    .foregroundColor(Color("TextColor"))
-                            }
-                            HStack {
-                                CheckBtn(isSet: $isChecked)
-                                Text("enjoy!")
-                                    .font(.headline)
-                                    .foregroundColor(Color("TextColor"))
+                            ForEach(checklistItems.indices, id: \.self) { index in
+                                ChecklistItem(isChecked: $checkedStates[index], text: checklistItems[index])
                             }
                         }
                         .padding(.horizontal, 30.0)
@@ -137,25 +112,16 @@ struct ScheduleList: View {
                     .offset(x: 0, y: 75)
                     
                     Image("safe-travels2")
-                        .offset(
-                            x: baseWidth * 0.4,
-                            y: baseHeight * -0.5
-                        )
+                        .offset(x: baseWidth * 0.4, y: baseHeight * -0.5)
                     
                     Image("be-notified1")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 60, height: 60)
-                        .offset(
-                            x: baseWidth * -0.43,
-                            y: baseHeight * -0.24
-                        )
+                        .offset(x: baseWidth * -0.43, y: baseHeight * -0.24)
                     
                     Image("pack-smart1")
-                        .offset(
-                            x: baseWidth * 0.14,
-                            y: baseHeight * 0.4583
-                        )
+                        .offset(x: baseWidth * 0.14, y: baseHeight * 0.4583)
                     
                 }
                 .frame(width: baseWidth, height: baseHeight)

@@ -32,7 +32,7 @@ struct FlightFindModal: View {
                 
                 // text
                 Text("enter that flight number!")
-                    .font(.title3)
+                    .font(.rethink(fontStyle: .title2))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
                     .fontWeight(.bold)
@@ -46,14 +46,14 @@ struct FlightFindModal: View {
                         .padding(.horizontal, 15)
                         .padding(.vertical, 4)
                         .textFieldStyle(PlainTextFieldStyle())
-                        .fontWeight(.semibold)
-                        .foregroundColor(Color("TextColor"))
+                        .font(.rethink(fontStyle: .headline))
+                        .foregroundColor(Color("ButtonTextPurple"))
                         .background(Color("ButtonPurple"))
                         .cornerRadius(40)
                                  
                     Button(action: {}) {
                         Text("done")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
                     }

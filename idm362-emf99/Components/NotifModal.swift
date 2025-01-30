@@ -30,7 +30,7 @@ struct NotifModal: View {
                 
                 // text
                 Text("would you like to receive notifications for your schedule?")
-                    .font(.title3)
+                    .font(.rethink(fontStyle: .title3))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
                     .fontWeight(.bold)
@@ -41,7 +41,7 @@ struct NotifModal: View {
                 HStack(spacing: 20) {
                     Button(action: {}) {
                         Text("no")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextPurple"))
                             .padding(.all, 10)
                     }
@@ -52,7 +52,7 @@ struct NotifModal: View {
                     
                     Button(action: {}) {
                         Text("yes")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
                     }

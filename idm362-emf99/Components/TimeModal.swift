@@ -42,7 +42,7 @@ struct TimeModal: View {
                 
                 // text
                 Text("how long does it take you to get ready for the airport?")
-                    .font(.title3)
+                    .font(.rethink(fontStyle: .title3))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
                     .fontWeight(.bold)
@@ -58,6 +58,7 @@ struct TimeModal: View {
                             ForEach(timeOptionsHour, id: \.self) { option in Text(option).tag(option)
                             }
                         }
+                        .font(.rethink(fontStyle: .headline))
                         .pickerStyle(MenuPickerStyle())
                         .frame(height: 40)
                         .padding(.horizontal, 15)
@@ -71,6 +72,7 @@ struct TimeModal: View {
                             ForEach(timeOptionsMins, id: \.self) { option in Text(option).tag(option)
                             }
                         }
+                        .font(.rethink(fontStyle: .headline))
                         .pickerStyle(MenuPickerStyle())
                         .frame(height: 40)
                         .padding(.horizontal, 15)
@@ -83,7 +85,7 @@ struct TimeModal: View {
                     
                     Button(action: {}) {
                         Text("done")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
                     }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Modal: View {
+    @State private var isPressed = false
     var body: some View {
         ZStack {
             Rectangle()
@@ -30,7 +31,7 @@ struct Modal: View {
                 
                 // text
                 Text("text here")
-                    .font(.title3)
+                    .font(.rethink(fontStyle: .title2))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
                     .fontWeight(.bold)
@@ -41,7 +42,7 @@ struct Modal: View {
                 HStack(spacing: 20) {
                     Button(action: {}) {
                         Text("yes")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextPurple"))
                             .padding(.all, 10)
                     }
@@ -52,7 +53,7 @@ struct Modal: View {
                     
                     Button(action: {}) {
                         Text("no")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
                     }
@@ -60,6 +61,7 @@ struct Modal: View {
                     .padding(.vertical, 4)
                     .background(Color("ButtonOrange"))
                     .cornerRadius(40)
+
                 }
             }
             .padding(.all, 30)
