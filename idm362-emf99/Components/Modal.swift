@@ -61,6 +61,7 @@ struct Modal: View {
                     .padding(.vertical, 4)
                     .background(Color("ButtonOrange"))
                     .cornerRadius(40)
+                    // button effect needed
 
                 }
             }
