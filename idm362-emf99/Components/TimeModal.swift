@@ -100,7 +100,7 @@ struct TimeModal: View {
                         }
                     }
                     
-                    // done button
+                    // Done button
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
                             isPressedDone.toggle()
