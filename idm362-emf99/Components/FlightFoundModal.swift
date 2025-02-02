@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FlightFoundModal: View {
+    @State private var isPressedX = false
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -17,7 +19,14 @@ struct FlightFoundModal: View {
             VStack(spacing: 20) {
                 HStack {
                     // x btn
-                    Button(action: {}) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
+                            isPressedX.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedX.toggle()
+                        }
+                    }) {
                         Image(systemName: "xmark")
                             .font(.headline)
                             .foregroundColor(Color("TextColor"))
@@ -26,6 +35,7 @@ struct FlightFoundModal: View {
                     .background(Color("ButtonPurple"))
                     .cornerRadius(20)
                     .offset(x: 120)
+                    .scaleEffect(isPressedX ? 0.95 : 1.0)
                 }
                 
                 // text
