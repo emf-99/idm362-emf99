@@ -64,7 +64,7 @@ struct FlightFindModal: View {
                             .accentColor(Color("ButtonTextPurple"))
                     }
                     .frame(height: 40)
-
+                    
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
                             isPressedDone.toggle()

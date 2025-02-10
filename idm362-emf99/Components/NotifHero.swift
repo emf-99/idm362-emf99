@@ -12,10 +12,10 @@ struct NotifHero: View {
         ZStack {
             VStack {
                 // logo
-               Image("logo")
+                Image("logo")
                     .resizable()
-                        .scaledToFit()
-                        .scaleEffect(0.5)
+                    .scaledToFit()
+                    .scaleEffect(0.5)
             }
             VStack {
                 // sticker top

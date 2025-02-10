@@ -11,15 +11,15 @@ struct FlightError: View {
     var body: some View {
         ZStack {
             AppBackground()
-                ZStack(alignment: .top) {
-                    FlightErrorModal()
-                        .offset(y: 20)
-                    FlightHero()
-                        .offset(y: -180)
-                }
+            ZStack(alignment: .top) {
+                FlightErrorModal()
+                    .offset(y: 20)
+                FlightHero()
+                    .offset(y: -180)
             }
         }
     }
+}
 
 
 #Preview {

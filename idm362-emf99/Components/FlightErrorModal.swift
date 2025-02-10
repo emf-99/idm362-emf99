@@ -10,7 +10,7 @@ import SwiftUI
 struct FlightErrorModal: View {
     @State private var isPressedTryAgain = false
     @State private var isPressedX = false
-
+    
     var body: some View {
         ZStack {
             Rectangle()

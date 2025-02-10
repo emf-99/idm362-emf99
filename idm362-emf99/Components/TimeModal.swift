@@ -80,7 +80,7 @@ struct TimeModal: View {
                             .cornerRadius(100)
                             .accentColor(Color("ButtonTextPurple"))
                         }
-
+                        
                         // minutes Picker
                         ZStack {
                             Picker("Select Minutes", selection: $selectedMins) {

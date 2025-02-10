@@ -10,7 +10,7 @@ import SwiftUI
 struct ScheduleList: View {
     
     @State private var checkedStates: [Bool] = Array(repeating: false, count: 6) // One for each checklist item
-
+    
     let baseWidth: CGFloat = 350
     let baseHeight: CGFloat = 720
     
@@ -35,11 +35,11 @@ struct ScheduleList: View {
             let forcedGrowFactor: CGFloat = 1.5
             let minScale: CGFloat = 0.8
             let maxScale: CGFloat = 1
-
+            
             let unboundedScale = scaleBasedOnDevice < 1
-                ? (scaleBasedOnDevice * forcedShrinkFactor)
-                : (scaleBasedOnDevice * forcedGrowFactor)
-
+            ? (scaleBasedOnDevice * forcedShrinkFactor)
+            : (scaleBasedOnDevice * forcedGrowFactor)
+            
             let finalScale = min(max(unboundedScale, minScale), maxScale)
             
             HStack(alignment: .center) {
