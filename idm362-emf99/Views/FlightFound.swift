@@ -11,13 +11,13 @@ struct FlightFound: View {
     var body: some View {
         ZStack {
             AppBackground()
-                ZStack(alignment: .top) {
-                    FlightFoundModal()
-                        .offset(y: 90)
-                    FlightHero()
-                        .offset(y: -180)
-                }
+            ZStack(alignment: .top) {
+                FlightFoundModal()
+                    .offset(y: 90)
+                FlightHero()
+                    .offset(y: -180)
             }
+        }
     }
 }
 

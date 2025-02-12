@@ -10,9 +10,22 @@
 		97B8DB092D37419000FAC7D4 /* idm362-emf99.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "idm362-emf99.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		97FAE4E32D4B507E0045E0B0 /* Exceptions for "idm362-emf99" folder in "idm362-emf99" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 97B8DB082D37419000FAC7D4 /* idm362-emf99 */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		97B8DB0B2D37419000FAC7D4 /* idm362-emf99 */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				97FAE4E32D4B507E0045E0B0 /* Exceptions for "idm362-emf99" folder in "idm362-emf99" target */,
+			);
 			path = "idm362-emf99";
 			sourceTree = "<group>";
 		};

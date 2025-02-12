@@ -1,15 +1,14 @@
 //
-//  FlightFindModal.swift
+//  FlightErrorModal.swift
 //  idm362-emf99
 //
-//  Created by ella fromherz on 1/24/25.
+//  Created by ella fromherz on 2/2/25.
 //
 
 import SwiftUI
 
-struct FlightFindModal: View {
-    @State private var flightNumber = ""
-    @State private var isPressedDone = false
+struct FlightErrorModal: View {
+    @State private var isPressedTryAgain = false
     @State private var isPressedX = false
     
     var body: some View {
@@ -41,7 +40,7 @@ struct FlightFindModal: View {
                 }
                 
                 // text
-                Text("enter that flight number!")
+                Text("oops! that flight number doesn't seem right...")
                     .font(.rethink(fontStyle: .title2))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
@@ -51,29 +50,15 @@ struct FlightFindModal: View {
                 
                 // buttons
                 HStack(spacing: 20) {
-                    ZStack {
-                        TextField("", text: $flightNumber, prompt: Text("flight number").foregroundColor(Color("ButtonTextPurple").opacity(0.4)))
-                            .padding(.all, 10)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 4)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .font(.rethink(fontStyle: .headline))
-                            .foregroundColor(Color("ButtonTextPurple"))
-                            .background(Color("ButtonPurple"))
-                            .cornerRadius(40)
-                            .accentColor(Color("ButtonTextPurple"))
-                    }
-                    .frame(height: 40)
-                    
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
-                            isPressedDone.toggle()
+                            isPressedTryAgain.toggle()
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedDone.toggle()
+                            isPressedTryAgain.toggle()
                         }
                     }) {
-                        Text("done")
+                        Text("try again")
                             .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
@@ -82,7 +67,7 @@ struct FlightFindModal: View {
                     .padding(.vertical, 4)
                     .background(Color("ButtonOrange"))
                     .cornerRadius(40)
-                    .scaleEffect(isPressedDone ? 0.85 : 1.0)
+                    .scaleEffect(isPressedTryAgain ? 0.85 : 1.0)
                 }
             }
             .padding(.all, 30)
@@ -92,5 +77,5 @@ struct FlightFindModal: View {
 }
 
 #Preview {
-    FlightFindModal()
+    FlightErrorModal()
 }

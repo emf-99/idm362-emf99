@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct NotifModal: View {
+    @State private var isPressedX = false
+    @State private var isPressedNo = false
+    @State private var isPressedYes = false
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -17,7 +21,14 @@ struct NotifModal: View {
             VStack(spacing: 20) {
                 HStack {
                     // x btn
-                    Button(action: {}) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
+                            isPressedX.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedX.toggle()
+                        }
+                    }) {
                         Image(systemName: "xmark")
                             .font(.headline)
                             .foregroundColor(Color("TextColor"))
@@ -26,11 +37,12 @@ struct NotifModal: View {
                     .background(Color("ButtonPurple"))
                     .cornerRadius(20)
                     .offset(x: 120)
+                    .scaleEffect(isPressedX ? 0.95 : 1.0) // Apply bounce effect
                 }
                 
                 // text
                 Text("would you like to receive notifications for your schedule?")
-                    .font(.title3)
+                    .font(.rethink(fontStyle: .title3))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
                     .fontWeight(.bold)
@@ -39,9 +51,16 @@ struct NotifModal: View {
                 
                 // buttons
                 HStack(spacing: 20) {
-                    Button(action: {}) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
+                            isPressedNo.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedNo.toggle()
+                        }
+                    }) {
                         Text("no")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextPurple"))
                             .padding(.all, 10)
                     }
@@ -49,10 +68,18 @@ struct NotifModal: View {
                     .padding(.vertical, 4)
                     .background(Color("ButtonPurple"))
                     .cornerRadius(40)
+                    .scaleEffect(isPressedNo ? 0.85 : 1.0)
                     
-                    Button(action: {}) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
+                            isPressedYes.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedYes.toggle()
+                        }
+                    }) {
                         Text("yes")
-                            .fontWeight(.semibold)
+                            .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
                     }
@@ -60,6 +87,7 @@ struct NotifModal: View {
                     .padding(.vertical, 4)
                     .background(Color("ButtonOrange"))
                     .cornerRadius(40)
+                    .scaleEffect(isPressedYes ? 0.85 : 1.0)
                 }
             }
             .padding(.all, 30)

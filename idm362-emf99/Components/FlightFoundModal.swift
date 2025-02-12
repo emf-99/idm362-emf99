@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FlightFoundModal: View {
+    @State private var isPressedX = false
+    
     var body: some View {
         ZStack {
             Rectangle()
@@ -17,7 +19,14 @@ struct FlightFoundModal: View {
             VStack(spacing: 20) {
                 HStack {
                     // x btn
-                    Button(action: {}) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
+                            isPressedX.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedX.toggle()
+                        }
+                    }) {
                         Image(systemName: "xmark")
                             .font(.headline)
                             .foregroundColor(Color("TextColor"))
@@ -26,12 +35,13 @@ struct FlightFoundModal: View {
                     .background(Color("ButtonPurple"))
                     .cornerRadius(20)
                     .offset(x: 120)
+                    .scaleEffect(isPressedX ? 0.95 : 1.0)
                 }
                 
                 // text
                 HStack {
                     Text("is this your flight?")
-                        .font(.title3)
+                        .font(.rethink(fontStyle: .title3))
                         .multilineTextAlignment(.center)
                         .foregroundColor(Color("TextColor"))
                         .fontWeight(.bold)
@@ -47,7 +57,7 @@ struct FlightFoundModal: View {
                         //flight info
                         VStack(spacing: 10){
                             Text("flight number: 2EF36M3")
-                                .font(.caption)
+                                .font(.rethink(fontStyle: .caption))
                                 .fontWeight(.light)
                                 .foregroundColor(Color("TextColorLight"))
                             
@@ -55,31 +65,31 @@ struct FlightFoundModal: View {
                                 // flight date
                                 VStack {
                                     Text("25")
-                                        .font(.title2)
+                                        .font(.rethink(fontStyle: .title2))
                                         .fontWeight(.bold)
                                         .foregroundColor(Color("TextColorLight"))
                                     Text("october")
-                                        .font(.caption)
+                                        .font(.rethink(fontStyle: .caption))
                                         .fontWeight(.light)
                                         .foregroundColor(Color("TextColorLight"))
                                 }
                                 
                                 // to and from airports
                                 Text("BWI > LGA")
-                                    .font(.headline)
+                                    .font(.rethink(fontStyle: .headline))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("TextColorLight"))
                                 
                                 // flight time
                                 VStack {
                                     Text("departure time:")
-                                        .font(.system(size: 8))
+                                        .font(.rethink(fontStyle: .caption2))
                                         .fontWeight(.light)
                                         .foregroundColor(Color("TextColorLight"))
                                         .lineLimit(2)
                                     
                                     Text("2:00pm")
-                                        .fontWeight(.bold)
+                                        .font(.rethink(fontStyle: .headline))
                                         .foregroundColor(Color("TextColorLight"))
                                 }
                             }
@@ -95,7 +105,7 @@ struct FlightFoundModal: View {
                     HStack(spacing: 20) {
                         Button(action: {}) {
                             Text("no")
-                                .fontWeight(.semibold)
+                                .font(.rethink(fontStyle: .headline))
                                 .foregroundColor(Color("ButtonTextPurple"))
                                 .padding(.all, 10)
                         }
@@ -106,7 +116,7 @@ struct FlightFoundModal: View {
                         
                         Button(action: {}) {
                             Text("yes")
-                                .fontWeight(.semibold)
+                                .font(.rethink(fontStyle: .headline))
                                 .foregroundColor(Color("ButtonTextOrange"))
                                 .padding(.all, 10)
                         }
