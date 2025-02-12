@@ -17,11 +17,13 @@ struct MainView: View {
                 .tabItem {
                     Label("home", systemImage: "airplane.circle.fill")
                 }
+                .foregroundColor(.blue)
             
             About()
                 .tabItem {
                     Label("about", systemImage: "info.circle")
                 }
+                .foregroundColor(.gray)
             
             Settings()
                 .tabItem {

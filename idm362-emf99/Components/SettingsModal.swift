@@ -86,12 +86,12 @@ struct SettingsModal: View {
                     }) {
                         Text("2")
                             .font(.rethink(fontStyle: .headline))
-                            .foregroundColor(Color("ButtonTextOrange"))
+                            .foregroundColor(Color("TextColorLight"))
                             .padding(.all, 10)
                     }
                     .padding(.horizontal, 15)
                     .padding(.vertical, 4)
-                    .background(Color("ButtonOrange"))
+                    .background(Color("ButtonTextOrange"))
                     .cornerRadius(40)
                     .scaleEffect(isPressed2 ? 0.85 : 1.0)
                     
@@ -106,12 +106,12 @@ struct SettingsModal: View {
                     }) {
                         Text("3")
                             .font(.rethink(fontStyle: .headline))
-                            .foregroundColor(Color("TextColorLight"))
+                            .foregroundColor(Color("ButtonTextOrange"))
                             .padding(.all, 10)
                     }
                     .padding(.horizontal, 15)
                     .padding(.vertical, 4)
-                    .background(Color("ButtonTextOrange"))
+                    .background(Color("ButtonOrange"))
                     .cornerRadius(40)
                     .scaleEffect(isPressed3 ? 0.85 : 1.0)
                 }
