@@ -8,35 +8,45 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    @EnvironmentObject var userData: UserData
-    
+    @State private var showFlightFind = false
+
     var body: some View {
-        ZStack {
-            AppBackgroundOpen()
-            VStack {
-                Image("logo-primary")
-                    .resizable()
-                    .scaledToFit()
-                    .scaleEffect(0.9)
-                    .shadow(color: Color(red: 0.67, green: 0.75, blue: 0.44).opacity(0.1), radius: 17.5, x: 0, y: 10)
-                    .padding(.all, 8.0)
-                    .offset(y: 40)
-                
-                
-                // display user selection at the bottom
-                Text("user picked: \(userData.ndx)")
-                    .font(.rethink(fontStyle: .caption))
-                    .foregroundColor(Color("AppBG"))
-                    .padding(.top, 10)
-                    .offset(y: 245)
+        NavigationStack {
+            ZStack {
+                if !showFlightFind {
+                    // loading screen
+                    ZStack {
+                        AppBackgroundOpen()
+                        VStack {
+                            Image("logo-primary")
+                                .resizable()
+                                .scaledToFit()
+                                .scaleEffect(0.9)
+                                .shadow(color: Color(red: 0.67, green: 0.75, blue: 0.44).opacity(0.1), radius: 17.5, x: 0, y: 10)
+                                .padding(.all, 8.0)
+                                .offset(y: 40)
+                        }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                    .transition(.opacity)
+                } else {
+                    
+                    FlightFind()
+                        .transition(.opacity)
+                }
+            }
+            .animation(.easeInOut(duration: 0.5), value: showFlightFind)
+        }
+        .onAppear {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    showFlightFind = true
+                }
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
     }
 }
 
 #Preview {
     ContentView()
-        .environmentObject(UserData()) // Provide UserData for preview
 }

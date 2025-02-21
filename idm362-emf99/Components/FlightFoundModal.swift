@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct FlightFoundModal: View {
+    @Environment(\.dismiss) private var dismiss // Add this to access navigation dismissal
     @State private var isPressedX = false
-    
+    @State private var isPressedYes = false
+    @State private var isPressedNo = false // Add for "no" button animation
+
     var body: some View {
         ZStack {
             Rectangle()
                 .fill(Color("ModalColor"))
                 .cornerRadius(20)
-            
             VStack(spacing: 20) {
                 HStack {
-                    // x btn
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
                             isPressedX.toggle()
@@ -37,8 +38,6 @@ struct FlightFoundModal: View {
                     .offset(x: 120)
                     .scaleEffect(isPressedX ? 0.95 : 1.0)
                 }
-                
-                // text
                 HStack {
                     Text("is this your flight?")
                         .font(.rethink(fontStyle: .title3))
@@ -48,21 +47,16 @@ struct FlightFoundModal: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                 }
-                
                 HStack {
                     ZStack {
                         Image("ticket")
                             .rotationEffect(Angle(degrees: 5))
-                        
-                        //flight info
-                        VStack(spacing: 10){
+                        VStack(spacing: 10) {
                             Text("flight number: 2EF36M3")
                                 .font(.rethink(fontStyle: .caption))
                                 .fontWeight(.light)
                                 .foregroundColor(Color("TextColorLight"))
-                            
                             HStack(spacing: 15) {
-                                // flight date
                                 VStack {
                                     Text("25")
                                         .font(.rethink(fontStyle: .title2))
@@ -73,21 +67,16 @@ struct FlightFoundModal: View {
                                         .fontWeight(.light)
                                         .foregroundColor(Color("TextColorLight"))
                                 }
-                                
-                                // to and from airports
                                 Text("BWI > LGA")
                                     .font(.rethink(fontStyle: .headline))
                                     .fontWeight(.bold)
                                     .foregroundColor(Color("TextColorLight"))
-                                
-                                // flight time
                                 VStack {
                                     Text("departure time:")
                                         .font(.rethink(fontStyle: .caption2))
                                         .fontWeight(.light)
                                         .foregroundColor(Color("TextColorLight"))
                                         .lineLimit(2)
-                                    
                                     Text("2:00pm")
                                         .font(.rethink(fontStyle: .headline))
                                         .foregroundColor(Color("TextColorLight"))
@@ -96,35 +85,45 @@ struct FlightFoundModal: View {
                         }
                         .rotationEffect(Angle(degrees: 5))
                         .offset(x: 20, y: 0)
-                        
                     }
                 }
-                
-                // buttons
-                HStack {
-                    HStack(spacing: 20) {
-                        Button(action: {}) {
-                            Text("no")
-                                .font(.rethink(fontStyle: .headline))
-                                .foregroundColor(Color("ButtonTextPurple"))
-                                .padding(.all, 10)
+                HStack(spacing: 20) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
+                            isPressedNo.toggle()
                         }
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 4)
-                        .background(Color("ButtonPurple"))
-                        .cornerRadius(40)
-                        
-                        Button(action: {}) {
-                            Text("yes")
-                                .font(.rethink(fontStyle: .headline))
-                                .foregroundColor(Color("ButtonTextOrange"))
-                                .padding(.all, 10)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedNo.toggle()
+                            dismiss() // Go back to FlightFind
                         }
-                        .padding(.horizontal, 15)
-                        .padding(.vertical, 4)
-                        .background(Color("ButtonOrange"))
-                        .cornerRadius(40)
+                    }) {
+                        Text("no")
+                            .font(.rethink(fontStyle: .headline))
+                            .foregroundColor(Color("ButtonTextPurple"))
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color("ButtonPurple"))
+                            .cornerRadius(40)
+                            .scaleEffect(isPressedNo ? 0.85 : 1.0)
                     }
+                    NavigationLink(destination: GetReady()) {
+                        Text("yes")
+                            .font(.rethink(fontStyle: .headline))
+                            .foregroundColor(Color("ButtonTextOrange"))
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
+                            .background(Color("ButtonOrange"))
+                            .cornerRadius(40)
+                            .scaleEffect(isPressedYes ? 0.85 : 1.0)
+                    }
+                    .simultaneousGesture(TapGesture().onEnded {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
+                            isPressedYes.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedYes.toggle()
+                        }
+                    })
                 }
             }
             .padding(.vertical, 30)

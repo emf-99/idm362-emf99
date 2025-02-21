@@ -7,20 +7,20 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct FlightFindModal: View {
     @State private var flightNumber = ""
     @State private var isPressedDone = false
     @State private var isPressedX = false
-    
+
     var body: some View {
         ZStack {
             Rectangle()
                 .fill(Color("ModalColor"))
                 .cornerRadius(20)
-            
             VStack(spacing: 20) {
                 HStack {
-                    // x btn
                     Button(action: {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
                             isPressedX.toggle()
@@ -39,8 +39,6 @@ struct FlightFindModal: View {
                     .offset(x: 120)
                     .scaleEffect(isPressedX ? 0.95 : 1.0)
                 }
-                
-                // text
                 Text("enter that flight number!")
                     .font(.rethink(fontStyle: .title2))
                     .multilineTextAlignment(.center)
@@ -48,8 +46,6 @@ struct FlightFindModal: View {
                     .fontWeight(.bold)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
-                
-                // buttons
                 HStack(spacing: 20) {
                     ZStack {
                         TextField("", text: $flightNumber, prompt: Text("flight number").foregroundColor(Color("ButtonTextPurple").opacity(0.4)))
@@ -64,25 +60,25 @@ struct FlightFindModal: View {
                             .accentColor(Color("ButtonTextPurple"))
                     }
                     .frame(height: 40)
-                    
-                    Button(action: {
+                    NavigationLink(destination: FlightFound()) {
+                        Text("done")
+                            .font(.rethink(fontStyle: .headline))
+                            .foregroundColor(Color("ButtonTextOrange"))
+                            .padding(.all, 10)
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 4)
+                            .background(Color("ButtonOrange"))
+                            .cornerRadius(40)
+                            .scaleEffect(isPressedDone ? 0.85 : 1.0)
+                    }
+                    .simultaneousGesture(TapGesture().onEnded {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
                             isPressedDone.toggle()
                         }
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             isPressedDone.toggle()
                         }
-                    }) {
-                        Text("done")
-                            .font(.rethink(fontStyle: .headline))
-                            .foregroundColor(Color("ButtonTextOrange"))
-                            .padding(.all, 10)
-                    }
-                    .padding(.horizontal, 15)
-                    .padding(.vertical, 4)
-                    .background(Color("ButtonOrange"))
-                    .cornerRadius(40)
-                    .scaleEffect(isPressedDone ? 0.85 : 1.0)
+                    })
                 }
             }
             .padding(.all, 30)

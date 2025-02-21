@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct FlightFound: View {
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         ZStack {
             AppBackground()
@@ -16,6 +18,22 @@ struct FlightFound: View {
                     .offset(y: 90)
                 FlightHero()
                     .offset(y: -180)
+            }
+        }
+        .navigationBarBackButtonHidden(true) // Hide default back button
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button(action: {
+                    dismiss() // Go back to FlightFind
+                }) {
+                    Image(systemName: "chevron.backward")
+                        .font(.headline)
+                        .foregroundColor(Color("ButtonTextOrange"))
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 10)
+                        .background(Color("ButtonOrange"))
+                        .cornerRadius(40)
+                }
             }
         }
     }
