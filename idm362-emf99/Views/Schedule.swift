@@ -30,6 +30,7 @@ struct Schedule: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: geometry.size.width * 0.25)
+                            .offset(y: -15)
                         ScheduleList(selectedFlight: selectedFlight, preparationTime: preparationTime)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
