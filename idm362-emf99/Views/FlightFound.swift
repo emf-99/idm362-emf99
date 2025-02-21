@@ -8,23 +8,24 @@
 import SwiftUI
 
 struct FlightFound: View {
+    let selectedFlight: Flight?
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack {
             AppBackground()
             ZStack(alignment: .top) {
-                FlightFoundModal()
+                FlightFoundModal(selectedFlight: selectedFlight)
                     .offset(y: 90)
                 FlightHero()
                     .offset(y: -180)
             }
         }
-        .navigationBarBackButtonHidden(true) // Hide default back button
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    dismiss() // Go back to FlightFind
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.backward")
                         .font(.headline)
@@ -40,5 +41,5 @@ struct FlightFound: View {
 }
 
 #Preview {
-    FlightFound()
+    FlightFound(selectedFlight: sampleFlights[0])
 }

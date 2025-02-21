@@ -27,6 +27,6 @@ struct ChecklistItem: View {
 }
 
 #Preview {
-    ChecklistItem(isChecked: .constant(false), text: "Leave for BWI at 10:30 AM")
+    ChecklistItem(isChecked: .constant(false), text: "leave for BWI at 10:30 AM")
 }
 

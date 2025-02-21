@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TimeModal: View {
+    let selectedFlight: Flight?
     @State private var selectedHour: String = "0hr"
     @State private var selectedMins: String = "0m"
     @State private var isPressedDone = false
@@ -53,10 +54,7 @@ struct TimeModal: View {
                         ZStack {
                             Picker("Select Hours", selection: $selectedHour) {
                                 ForEach(timeOptionsHour, id: \.self) { option in
-                                    Text(option)
-                                        .font(.rethink(fontStyle: .headline))
-                                        .foregroundColor(Color("ButtonTextPurple"))
-                                        .tag(option)
+                                    Text(option).tag(option)
                                 }
                             }
                             .pickerStyle(WheelPickerStyle())
@@ -69,10 +67,7 @@ struct TimeModal: View {
                         ZStack {
                             Picker("Select Minutes", selection: $selectedMins) {
                                 ForEach(timeOptionsMins, id: \.self) { option in
-                                    Text(option)
-                                        .font(.rethink(fontStyle: .headline))
-                                        .foregroundColor(Color("ButtonTextPurple"))
-                                        .tag(option)
+                                    Text(option).tag(option)
                                 }
                             }
                             .pickerStyle(WheelPickerStyle())
@@ -83,13 +78,12 @@ struct TimeModal: View {
                             .accentColor(Color("ButtonTextPurple"))
                         }
                     }
-                    NavigationLink(destination: Schedule()) {
+                    NavigationLink(destination: Schedule(selectedFlight: selectedFlight, preparationTime: "\(selectedHour) \(selectedMins)")) {
                         Text("done")
                             .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
-                            .padding(.all, 10)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 4)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
                             .background(Color("ButtonOrange"))
                             .cornerRadius(40)
                             .scaleEffect(isPressedDone ? 0.85 : 1.0)
@@ -111,5 +105,5 @@ struct TimeModal: View {
 }
 
 #Preview {
-    TimeModal()
+    TimeModal(selectedFlight: sampleFlights[0])
 }

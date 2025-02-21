@@ -5,16 +5,18 @@
 //  Created by ella fromherz on 1/24/25.
 //
 
+// GetReady.swift
 import SwiftUI
 
 struct GetReady: View {
+    let selectedFlight: Flight?
     @Environment(\.dismiss) private var dismiss
 
     var body: some View {
         ZStack {
             AppBackground()
             ZStack(alignment: .top) {
-                TimeModal()
+                TimeModal(selectedFlight: selectedFlight)
                     .offset(y: 50)
                 FlightHero()
                     .offset(y: -180)
@@ -24,7 +26,7 @@ struct GetReady: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    dismiss() // Go back to FlightFound
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.backward")
                         .font(.headline)
@@ -40,5 +42,5 @@ struct GetReady: View {
 }
 
 #Preview {
-    GetReady()
+    GetReady(selectedFlight: sampleFlights[0])
 }

@@ -5,12 +5,14 @@
 //  Created by ella fromherz on 1/24/25.
 //
 
-import SwiftUI
+// FlightFindModal.swift
+// FlightFindModal.swift
 
+// FlightFindModal.swift
 import SwiftUI
 
 struct FlightFindModal: View {
-    @State private var flightNumber = ""
+    @State private var selectedFlight: Flight? = nil
     @State private var isPressedDone = false
     @State private var isPressedX = false
 
@@ -39,7 +41,7 @@ struct FlightFindModal: View {
                     .offset(x: 120)
                     .scaleEffect(isPressedX ? 0.95 : 1.0)
                 }
-                Text("enter that flight number!")
+                Text("select your flight!")
                     .font(.rethink(fontStyle: .title2))
                     .multilineTextAlignment(.center)
                     .foregroundColor(Color("TextColor"))
@@ -47,26 +49,37 @@ struct FlightFindModal: View {
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
                 HStack(spacing: 20) {
-                    ZStack {
-                        TextField("", text: $flightNumber, prompt: Text("flight number").foregroundColor(Color("ButtonTextPurple").opacity(0.4)))
-                            .padding(.all, 10)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 4)
-                            .textFieldStyle(PlainTextFieldStyle())
-                            .font(.rethink(fontStyle: .headline))
+                    Picker("Flight Number", selection: $selectedFlight) {
+                        Text("choose flight ")
+                            .font(.rethink(fontStyle: .caption))
+                            .fontWeight(.regular)
                             .foregroundColor(Color("ButtonTextPurple"))
-                            .background(Color("ButtonPurple"))
-                            .cornerRadius(40)
-                            .accentColor(Color("ButtonTextPurple"))
+                            .padding(.horizontal, 4)
+                            .tag(Flight?.none)
+                        ForEach(sampleFlights) { flight in
+                            Text(flight.flightNumber)
+                                .font(.rethink(fontStyle: .headline))
+                                .foregroundColor(Color("ButtonTextPurple"))
+                                .tag(Flight?.some(flight))
+                        }
                     }
+                    .pickerStyle(MenuPickerStyle())
+                    .font(.rethink(fontStyle: .headline)) // This styles the Picker's visible label/container
+                    .foregroundColor(Color("ButtonTextPurple"))
+                    .background(Color("ButtonPurple"))
+                    .cornerRadius(40)
+                    .accentColor(Color("ButtonTextPurple"))
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 4)
+                    .background(Color("ButtonPurple")) // Note: Double background; remove one if unintended
+                    .cornerRadius(40)
                     .frame(height: 40)
-                    NavigationLink(destination: FlightFound()) {
+                    NavigationLink(destination: FlightFound(selectedFlight: selectedFlight)) {
                         Text("done")
                             .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
-                            .padding(.all, 10)
-                            .padding(.horizontal, 15)
-                            .padding(.vertical, 4)
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
                             .background(Color("ButtonOrange"))
                             .cornerRadius(40)
                             .scaleEffect(isPressedDone ? 0.85 : 1.0)
@@ -79,6 +92,7 @@ struct FlightFindModal: View {
                             isPressedDone.toggle()
                         }
                     })
+                    .disabled(selectedFlight == nil)
                 }
             }
             .padding(.all, 30)

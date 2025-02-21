@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Schedule: View {
+    let selectedFlight: Flight?
+    let preparationTime: String
     @Environment(\.dismiss) private var dismiss
 
     private func spacing(for height: CGFloat) -> CGFloat {
@@ -28,8 +30,7 @@ struct Schedule: View {
                             .resizable()
                             .scaledToFit()
                             .frame(width: geometry.size.width * 0.25)
-                            .offset(y: -20)
-                        ScheduleList()
+                        ScheduleList(selectedFlight: selectedFlight, preparationTime: preparationTime)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
@@ -39,7 +40,7 @@ struct Schedule: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button(action: {
-                    dismiss() // Go back to GetReady
+                    dismiss()
                 }) {
                     Image(systemName: "chevron.backward")
                         .font(.headline)
@@ -55,5 +56,5 @@ struct Schedule: View {
 }
 
 #Preview {
-    Schedule()
+    Schedule(selectedFlight: sampleFlights[0], preparationTime: "2hr 30m")
 }

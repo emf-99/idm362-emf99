@@ -9,8 +9,6 @@ import SwiftUI
 
 struct Settings: View {
     
-    @EnvironmentObject var userData: UserData
-    
     var body: some View {
         ZStack {
             AppBackground()
@@ -21,13 +19,6 @@ struct Settings: View {
                     FlightHero()
                         .offset(y: -180)
                 }
-                
-                // display user selection at the bottom
-                Text("user picked: \(userData.ndx)")
-                    .font(.rethink(fontStyle: .caption))
-                    .foregroundColor(Color("AppBG"))
-                    .padding(.top, 10)
-                    .offset(y: 230)
             }
         }
     }
@@ -35,5 +26,4 @@ struct Settings: View {
 
 #Preview {
     Settings()
-        .environmentObject(UserData())
 }

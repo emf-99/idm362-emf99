@@ -38,7 +38,7 @@ struct ContentView: View {
             .animation(.easeInOut(duration: 0.5), value: showFlightFind)
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 withAnimation {
                     showFlightFind = true
                 }

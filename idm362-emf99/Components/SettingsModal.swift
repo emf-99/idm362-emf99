@@ -9,8 +9,6 @@ import SwiftUI
 
 struct SettingsModal: View {
     
-    @EnvironmentObject var userData: UserData
-    
     @State private var isPressedX = false
     @State private var isPressed1 = false
     @State private var isPressed2 = false
@@ -59,7 +57,6 @@ struct SettingsModal: View {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
                             isPressed1.toggle()
                         }
-                        userData.ndx = 1
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             isPressed1.toggle()
                         }
@@ -79,7 +76,6 @@ struct SettingsModal: View {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
                             isPressed2.toggle()
                         }
-                        userData.ndx = 2
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             isPressed2.toggle()
                         }
@@ -99,7 +95,6 @@ struct SettingsModal: View {
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
                             isPressed3.toggle()
                         }
-                        userData.ndx = 3
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             isPressed3.toggle()
                         }
@@ -125,5 +120,4 @@ struct SettingsModal: View {
 
 #Preview {
     SettingsModal()
-        .environmentObject(UserData())
 }
