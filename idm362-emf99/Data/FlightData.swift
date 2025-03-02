@@ -5,7 +5,7 @@
 //  Created by ella fromherz on 2/21/25.
 //
 
-// FlightData.swift
+// sample flight data
 import SwiftUI
 
 struct Flight: Identifiable, Hashable {
