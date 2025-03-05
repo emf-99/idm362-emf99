@@ -10,10 +10,15 @@ import SwiftUI
 
 struct FlightFoundModal: View {
     let selectedFlight: Flight?
+    @Binding var navigationPath: NavigationPath
     @Environment(\.dismiss) private var dismiss
-    @State private var isPressedX = false
     @State private var isPressedYes = false
     @State private var isPressedNo = false
+
+    init(selectedFlight: Flight?, navigationPath: Binding<NavigationPath>) {
+        self.selectedFlight = selectedFlight
+        _navigationPath = navigationPath
+    }
 
     var body: some View {
         ZStack {
@@ -21,25 +26,6 @@ struct FlightFoundModal: View {
                 .fill(Color("ModalColor"))
                 .cornerRadius(20)
             VStack(spacing: 20) {
-                HStack {
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
-                            isPressedX.toggle()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedX.toggle()
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                            .foregroundColor(Color("TextColor"))
-                    }
-                    .padding(.all, 10)
-                    .background(Color("ButtonPurple"))
-                    .cornerRadius(20)
-                    .offset(x: 120)
-                    .scaleEffect(isPressedX ? 0.95 : 1.0)
-                }
                 HStack {
                     Text("is this your flight?")
                         .font(.rethink(fontStyle: .title3))
@@ -49,6 +35,7 @@ struct FlightFoundModal: View {
                         .lineLimit(nil)
                         .fixedSize(horizontal: false, vertical: true)
                 }
+                .padding(.top, 20)
                 HStack {
                     ZStack {
                         Image("ticket")
@@ -110,7 +97,17 @@ struct FlightFoundModal: View {
                             .cornerRadius(40)
                             .scaleEffect(isPressedNo ? 0.85 : 1.0)
                     }
-                    NavigationLink(destination: GetReady(selectedFlight: selectedFlight)) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
+                            isPressedYes.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedYes.toggle()
+                            if let flight = selectedFlight {
+                                navigationPath.append("GetReady_\(flight.flightNumber)") // unique identifier for GetReady
+                            }
+                        }
+                    }) {
                         Text("yes")
                             .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
@@ -120,14 +117,6 @@ struct FlightFoundModal: View {
                             .cornerRadius(40)
                             .scaleEffect(isPressedYes ? 0.85 : 1.0)
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
-                            isPressedYes.toggle()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedYes.toggle()
-                        }
-                    })
                 }
             }
             .padding(.vertical, 30)
@@ -138,5 +127,5 @@ struct FlightFoundModal: View {
 }
 
 #Preview {
-    FlightFoundModal(selectedFlight: sampleFlights[0])
+    FlightFoundModal(selectedFlight: sampleFlights[0], navigationPath: .constant(NavigationPath()))
 }

@@ -10,13 +10,19 @@ import SwiftUI
 
 struct GetReady: View {
     let selectedFlight: Flight?
+    @Binding var navigationPath: NavigationPath
     @Environment(\.dismiss) private var dismiss
+
+    init(selectedFlight: Flight?, navigationPath: Binding<NavigationPath>) {
+        self.selectedFlight = selectedFlight
+        _navigationPath = navigationPath
+    }
 
     var body: some View {
         ZStack {
             AppBackground()
             ZStack(alignment: .top) {
-                TimeModal(selectedFlight: selectedFlight)
+                TimeModal(selectedFlight: selectedFlight, navigationPath: $navigationPath)
                     .offset(y: 50)
                 FlightHero()
                     .offset(y: -180)
@@ -42,5 +48,5 @@ struct GetReady: View {
 }
 
 #Preview {
-    GetReady(selectedFlight: sampleFlights[0])
+    GetReady(selectedFlight: sampleFlights[0], navigationPath: .constant(NavigationPath()))
 }

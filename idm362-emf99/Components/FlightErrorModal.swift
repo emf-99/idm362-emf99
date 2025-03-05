@@ -9,7 +9,6 @@ import SwiftUI
 
 struct FlightErrorModal: View {
     @State private var isPressedTryAgain = false
-    @State private var isPressedX = false
     
     var body: some View {
         ZStack {
@@ -18,27 +17,6 @@ struct FlightErrorModal: View {
                 .cornerRadius(20)
             
             VStack(spacing: 20) {
-                HStack {
-                    // x btn
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
-                            isPressedX.toggle()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedX.toggle()
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                            .foregroundColor(Color("TextColor"))
-                    }
-                    .padding(.all, 10)
-                    .background(Color("ButtonPurple"))
-                    .cornerRadius(20)
-                    .offset(x: 120)
-                    .scaleEffect(isPressedX ? 0.95 : 1.0)
-                }
-                
                 // text
                 Text("oops! that flight number doesn't seem right...")
                     .font(.rethink(fontStyle: .title2))
@@ -47,6 +25,7 @@ struct FlightErrorModal: View {
                     .fontWeight(.bold)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 20)
                 
                 // buttons
                 HStack(spacing: 20) {

@@ -6,32 +6,41 @@
 //
 
 // ScheduleList.swift
-// ScheduleList.swift
-
-// ScheduleList.swift
 import SwiftUI
 
 struct ScheduleList: View {
     let selectedFlight: Flight?
     let preparationTime: String
-    @State private var checkedStates: [Bool] = Array(repeating: false, count: 6)
+    @Binding var navigationPath: NavigationPath
+    @State private var checkedStates: [Bool] {
+        didSet {
+            UserDefaults.standard.set(checkedStates, forKey: "ChecklistStates")
+            print("Saved ChecklistStates via didSet: \(checkedStates)")
+        }
+    }
 
     let baseWidth: CGFloat = 350
     let baseHeight: CGFloat = 720
 
-    // Function to calculate time based on departure time and offset
+    init(selectedFlight: Flight?, preparationTime: String, navigationPath: Binding<NavigationPath>) {
+        self.selectedFlight = selectedFlight
+        self.preparationTime = preparationTime
+        _navigationPath = navigationPath
+        let loadedStates = UserDefaults.standard.object(forKey: "ChecklistStates") as? [Bool] ?? Array(repeating: false, count: 6)
+        _checkedStates = State(initialValue: loadedStates)
+        print("Loaded ChecklistStates on init: \(loadedStates)")
+    }
+
     private func calculateTime(departureTime: String, subtractMinutes: Int) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mma" // e.g., "03:30pm"
+        formatter.dateFormat = "hh:mma"
         guard let departureDate = formatter.date(from: departureTime) else { return "N/A" }
-
         if let adjustedDate = Calendar.current.date(byAdding: .minute, value: -subtractMinutes, to: departureDate) {
             return formatter.string(from: adjustedDate)
         }
         return "N/A"
     }
 
-    // Calculate preparation time in minutes
     private func preparationTimeInMinutes(_ preparationTime: String) -> Int {
         let prepComponents = preparationTime.split(separator: " ")
         var totalMinutes: Int = 0
@@ -109,18 +118,36 @@ struct ScheduleList: View {
                             .cornerRadius(20)
                         if let flight = selectedFlight {
                             let prepMinutes = preparationTimeInMinutes(preparationTime)
-                            let getReadyTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: prepMinutes + 120) // Prep + 2hr
-                            let leaveTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: 120) // 2hr
-                            let gateTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: 60) // 1hr
-                            let boardTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: 30) // 30min
+                            let getReadyTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: prepMinutes + 120)
+                            let leaveTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: 120)
+                            let gateTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: 60)
+                            let boardTime = calculateTime(departureTime: flight.departureTime, subtractMinutes: 30)
                             
                             VStack(alignment: .leading, spacing: 35.0) {
-                                ChecklistItem(isChecked: $checkedStates[0], text: "get ready for flight \(flight.flightNumber) at \(getReadyTime)")
-                                ChecklistItem(isChecked: $checkedStates[1], text: "leave for \(flight.departureAirport) at \(leaveTime)")
-                                ChecklistItem(isChecked: $checkedStates[2], text: "arrive at your gate by \(gateTime)")
-                                ChecklistItem(isChecked: $checkedStates[3], text: "purchase any needed in-flight items at a nearby newsstand")
-                                ChecklistItem(isChecked: $checkedStates[4], text: "board your flight at \(boardTime)")
-                                ChecklistItem(isChecked: $checkedStates[5], text: "safe travels!")
+                                ChecklistItem(isChecked: Binding(
+                                    get: { checkedStates[0] },
+                                    set: { newValue in checkedStates[0] = newValue; checkedStates = checkedStates } // Force array reassignment
+                                ), text: "get ready for flight \(flight.flightNumber) at \(getReadyTime)", index: 0)
+                                ChecklistItem(isChecked: Binding(
+                                    get: { checkedStates[1] },
+                                    set: { newValue in checkedStates[1] = newValue; checkedStates = checkedStates }
+                                ), text: "leave for \(flight.departureAirport) at \(leaveTime)", index: 1)
+                                ChecklistItem(isChecked: Binding(
+                                    get: { checkedStates[2] },
+                                    set: { newValue in checkedStates[2] = newValue; checkedStates = checkedStates }
+                                ), text: "arrive at your gate by \(gateTime)", index: 2)
+                                ChecklistItem(isChecked: Binding(
+                                    get: { checkedStates[3] },
+                                    set: { newValue in checkedStates[3] = newValue; checkedStates = checkedStates }
+                                ), text: "purchase any needed in-flight items at a nearby newsstand", index: 3)
+                                ChecklistItem(isChecked: Binding(
+                                    get: { checkedStates[4] },
+                                    set: { newValue in checkedStates[4] = newValue; checkedStates = checkedStates }
+                                ), text: "board your flight at \(boardTime)", index: 4)
+                                ChecklistItem(isChecked: Binding(
+                                    get: { checkedStates[5] },
+                                    set: { newValue in checkedStates[5] = newValue; checkedStates = checkedStates }
+                                ), text: "safe travels!", index: 5)
                             }
                             .padding(.horizontal, 30.0)
                         }
@@ -146,5 +173,5 @@ struct ScheduleList: View {
 }
 
 #Preview {
-    ScheduleList(selectedFlight: sampleFlights[0], preparationTime: "2hr 30m")
+    ScheduleList(selectedFlight: sampleFlights[0], preparationTime: "2hr 30m", navigationPath: .constant(NavigationPath()))
 }

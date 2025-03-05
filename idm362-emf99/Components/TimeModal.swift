@@ -5,17 +5,23 @@
 //  Created by ella fromherz on 1/24/25.
 //
 
+// TimeModal.swift
 import SwiftUI
 
 struct TimeModal: View {
     let selectedFlight: Flight?
+    @Binding var navigationPath: NavigationPath
     @State private var selectedHour: String = "0hr"
     @State private var selectedMins: String = "0m"
     @State private var isPressedDone = false
-    @State private var isPressedX = false
 
     private let timeOptionsHour: [String] = ["0hr", "1hr", "2hr", "3hr", "4hr", "5hr", "6hr"]
     private let timeOptionsMins: [String] = ["0m", "15m", "30m", "45m"]
+
+    init(selectedFlight: Flight?, navigationPath: Binding<NavigationPath>) {
+        self.selectedFlight = selectedFlight
+        _navigationPath = navigationPath
+    }
 
     var body: some View {
         ZStack {
@@ -23,25 +29,6 @@ struct TimeModal: View {
                 .fill(Color("ModalColor"))
                 .cornerRadius(20)
             VStack(spacing: 20) {
-                HStack {
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
-                            isPressedX.toggle()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedX.toggle()
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                            .foregroundColor(Color("TextColor"))
-                    }
-                    .padding(.all, 10)
-                    .background(Color("ButtonPurple"))
-                    .cornerRadius(20)
-                    .offset(x: 120)
-                    .scaleEffect(isPressedX ? 0.95 : 1.0)
-                }
                 Text("how long does it take you to get ready for the airport?")
                     .font(.rethink(fontStyle: .title3))
                     .multilineTextAlignment(.center)
@@ -49,6 +36,7 @@ struct TimeModal: View {
                     .fontWeight(.bold)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 20)
                 VStack(spacing: 20) {
                     HStack {
                         ZStack {
@@ -78,7 +66,18 @@ struct TimeModal: View {
                             .accentColor(Color("ButtonTextPurple"))
                         }
                     }
-                    NavigationLink(destination: Schedule(selectedFlight: selectedFlight, preparationTime: "\(selectedHour) \(selectedMins)")) {
+                    Button(action: {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
+                            isPressedDone.toggle()
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPressedDone.toggle()
+                            if let flight = selectedFlight {
+                                let prepTime = "\(selectedHour) \(selectedMins)"
+                                navigationPath.append("Schedule_\(prepTime)_\(flight.flightNumber)") // Fixed format
+                            }
+                        }
+                    }) {
                         Text("done")
                             .font(.rethink(fontStyle: .headline))
                             .foregroundColor(Color("ButtonTextOrange"))
@@ -88,14 +87,6 @@ struct TimeModal: View {
                             .cornerRadius(40)
                             .scaleEffect(isPressedDone ? 0.85 : 1.0)
                     }
-                    .simultaneousGesture(TapGesture().onEnded {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.4, blendDuration: 0)) {
-                            isPressedDone.toggle()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedDone.toggle()
-                        }
-                    })
                 }
             }
             .padding(.all, 30)
@@ -105,5 +96,5 @@ struct TimeModal: View {
 }
 
 #Preview {
-    TimeModal(selectedFlight: sampleFlights[0])
+    TimeModal(selectedFlight: sampleFlights[0], navigationPath: .constant(NavigationPath()))
 }

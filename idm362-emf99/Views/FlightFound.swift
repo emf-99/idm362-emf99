@@ -5,17 +5,24 @@
 //  Created by ella fromherz on 1/24/25.
 //
 
+// FlightFound.swift
 import SwiftUI
 
 struct FlightFound: View {
     let selectedFlight: Flight?
+    @Binding var navigationPath: NavigationPath // Add this
     @Environment(\.dismiss) private var dismiss
+
+    init(selectedFlight: Flight?, navigationPath: Binding<NavigationPath>) {
+        self.selectedFlight = selectedFlight
+        _navigationPath = navigationPath
+    }
 
     var body: some View {
         ZStack {
             AppBackground()
             ZStack(alignment: .top) {
-                FlightFoundModal(selectedFlight: selectedFlight)
+                FlightFoundModal(selectedFlight: selectedFlight, navigationPath: $navigationPath) // pass navigationPath
                     .offset(y: 90)
                 FlightHero()
                     .offset(y: -180)
@@ -41,5 +48,5 @@ struct FlightFound: View {
 }
 
 #Preview {
-    FlightFound(selectedFlight: sampleFlights[0])
+    FlightFound(selectedFlight: sampleFlights[0], navigationPath: .constant(NavigationPath()))
 }

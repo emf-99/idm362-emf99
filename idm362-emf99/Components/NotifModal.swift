@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct NotifModal: View {
-    @State private var isPressedX = false
     @State private var isPressedNo = false
     @State private var isPressedYes = false
     
@@ -19,27 +18,6 @@ struct NotifModal: View {
                 .cornerRadius(20)
             
             VStack(spacing: 20) {
-                HStack {
-                    // x btn
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.2, blendDuration: 0)) {
-                            isPressedX.toggle()
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            isPressedX.toggle()
-                        }
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                            .foregroundColor(Color("TextColor"))
-                    }
-                    .padding(.all, 10)
-                    .background(Color("ButtonPurple"))
-                    .cornerRadius(20)
-                    .offset(x: 120)
-                    .scaleEffect(isPressedX ? 0.95 : 1.0) // Apply bounce effect
-                }
-                
                 // text
                 Text("would you like to receive notifications for your schedule?")
                     .font(.rethink(fontStyle: .title3))
@@ -48,6 +26,7 @@ struct NotifModal: View {
                     .fontWeight(.bold)
                     .lineLimit(nil)
                     .fixedSize(horizontal: false, vertical: true)
+                    .padding(.top, 30)
                 
                 // buttons
                 HStack(spacing: 20) {

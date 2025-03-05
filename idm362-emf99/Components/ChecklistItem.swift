@@ -5,17 +5,23 @@
 //  Created by ella fromherz on 1/30/25.
 //
 
-
+// ChecklistItem.swift
 import SwiftUI
 
 struct ChecklistItem: View {
     @Binding var isChecked: Bool
     let text: String
-    
+    let index: Int // add index
+
+    init(isChecked: Binding<Bool>, text: String, index: Int) {
+        _isChecked = isChecked
+        self.text = text
+        self.index = index
+    }
+
     var body: some View {
         HStack(alignment: .top) {
-            CheckBtn(isSet: $isChecked)
-            
+            CheckBtn(isSet: $isChecked, index: index) // pass index
             Text(text)
                 .foregroundColor(Color("TextColor"))
                 .font(.rethink(fontStyle: .headline))
@@ -27,6 +33,5 @@ struct ChecklistItem: View {
 }
 
 #Preview {
-    ChecklistItem(isChecked: .constant(false), text: "leave for BWI at 10:30 AM")
+    ChecklistItem(isChecked: .constant(false), text: "leave for BWI at 10:30 AM", index: 0)
 }
-
