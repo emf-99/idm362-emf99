@@ -16,7 +16,7 @@ struct ContentView: View {
         if UserDefaults.standard.bool(forKey: "LastScreenWasSchedule"),
            let flightNumber = UserDefaults.standard.string(forKey: "SelectedFlightNumber"),
            let prepTime = UserDefaults.standard.string(forKey: "LastPreparationTime"),
-           let flight = selectedFlight(from: flightNumber) {
+           let _ = selectedFlight(from: flightNumber) {
             _navigationPath = State(initialValue: NavigationPath(["Schedule_\(prepTime)_\(flightNumber)"]))
             _showFlightFind = State(initialValue: true)
         }

@@ -91,7 +91,7 @@ struct FlightFindModal: View {
             .padding(.all, 30)
         }
         .frame(width: 350, height: 200)
-        .onChange(of: navigationPath) { newPath in
+        .onChange(of: navigationPath) { oldPath, newPath in
             // reset selectedFlight if navigation stack is cleared
             if newPath.isEmpty && UserDefaults.standard.string(forKey: "SelectedFlightNumber") == nil {
                 selectedFlight = nil
